@@ -12,7 +12,7 @@ source("scripts/listEdges.R")
 
 shinyServer(function(input, output, session) {
   
-###### MILS2D Tab
+###### Perturbation Analysis Tab
 
 #runs once, when server starts
 g <- loadGraphPA("./data/m88.csv")
