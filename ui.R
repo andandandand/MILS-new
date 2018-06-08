@@ -31,7 +31,7 @@ shinyUI(
                                          choices = c("vertices", "edges"),
                                          selected = "vertices"),
                             
-                            #todo: update max dynamically on server
+                            #TODO: update max dynamically on server
                             sliderInput(inputId="numberOfElements",
                                         label = "number of elements",
                                         min = 1, 
@@ -50,9 +50,7 @@ shinyUI(
                
                tabPanel("For strings",
                         value=2,
-                        h3("MILS for strings")
-                        
-                        
+                        h3("MILS for Strings")
                         
                         )
                
