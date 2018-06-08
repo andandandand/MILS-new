@@ -8,7 +8,7 @@ shinyUI(
     sidebarLayout(
       
       column(6, 
-             tabsetPanel(
+             tabsetPanel(id = "conditionedPanels",
                tabPanel("For networks",
                         value = 1,
                         
@@ -68,7 +68,7 @@ shinyUI(
         conditionalPanel(condition="input.conditionedPanels==1",
                          
                          br(),
-                         
+                         #TODO: find out why this isn't rendering
                          h3("Adjacency Matrix"),
                          
               #div(tableOutput("loadedGraph"), align="center", style="font-size: 110%"),

@@ -13,6 +13,8 @@ shinyServer(function(input, output, session) {
   
   
   ## MILS 2D tab
+  
+  #g is an igraph graph, not an adjacency matrix
   g <- loadGraphPA("./data/starGraphAdjMatrix.csv")
   pv <- calculatePerturbationByVertexDeletion(g, 4, 1)
   pe <- calculatePerturbationByEdgeDeletion(g ,4, 1)
@@ -62,5 +64,15 @@ shinyServer(function(input, output, session) {
   # })
   
   #TODO: return igraph plot to mainPanel
-  
+  output$graphPlot <- renderPlot({
+    
+    coords <- layout_(reactiveData$g, as_star())
+    
+    plot(reactiveData$g,
+         layout = coords,
+         edge.arrow.size = 0.4,
+         vertex.size = 25,
+         vertex.label.family = "Arial Black")
+    
+  }) 
 })
