@@ -68,10 +68,10 @@ shinyUI(
         conditionalPanel(condition="input.conditionedPanels==1",
                          
                          br(),
-                         #TODO: find out why this isn't rendering
-                         h3("Adjacency Matrix"),
                          
-              #div(tableOutput("loadedGraph"), align="center", style="font-size: 110%"),
+                         h3("Original Graph"),
+                         
+              div(plotOutput("graphPlot"), align="center", style="font-size: 110%"),
                          
                          
                          br(),

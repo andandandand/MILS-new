@@ -17,8 +17,11 @@ shinyServer(function(input, output, session) {
   #g is an igraph graph, not an adjacency matrix
   g <- loadGraphPA("./data/starGraphAdjMatrix.csv")
   pv <- calculatePerturbationByVertexDeletion(g, 4, 1)
+  print(pv)
   pe <- calculatePerturbationByEdgeDeletion(g ,4, 1)
-  g  <- setGraphColors(g, pv, pe)
+  print(pe)
+  #TODO: define a coloring as in perturbation analysis
+  #g  <- setGraphColors(g, pv, pe)
   
   #TODO: rename to "deletionsCounter"
   perturbationCounter <- as.integer(1)
