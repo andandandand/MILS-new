@@ -1,9 +1,19 @@
 library(shiny)
+library("shinythemes")
 
+orange_slider <- "
+.irs-bar,
+.irs-bar-edge,
+.irs-single,
+.irs-grid-pol {
+background: #f63;
+border-color: #f63;
+}"
 
 shinyUI(
   fluidPage(
-    #titlePanel("Reduction by Minimal Information Loss in Networks and Strings"),
+    theme = shinytheme("united"),
+    tags$style(orange_slider),
     
     sidebarLayout(
       
@@ -40,43 +50,52 @@ shinyUI(
                             
                             actionButton(inputId="swapGraphsButton",
                                          label  ="Update evaluated graph")
-                            
-                            
                           )
-                          
                         )
-                        
-                  ),
+                      ), #en "For networks" tabpanel
                
                tabPanel("For strings",
                         value=2,
                         h3("MILS for Strings")
                         
                         )
-               
-               
-               
-               
              )
-        
-        
-        
       ),
       
       mainPanel(
-        withMathJax(),
+        #withMathJax(),
         conditionalPanel(condition="input.conditionedPanels==1",
                          
                          br(),
-                         
-                         h3("Original Graph"),
-                         
-              div(plotOutput("graphPlot"), align="center", style="font-size: 110%"),
-                         
+
+                         fluidRow(
+                           column(width = 6,
+                                  HTML('<center><h3>Original graph</h3></center>'),
+                                  plotOutput("graphPlot")),
+                           column(width = 6,
+                                  HTML('<center><h3>Reduced graph</h3></center>'),
+                                  plotOutput("graphPlot")),
+                           div(p("Removed edges: ", 
+                                 #textOutput(outputId = "removed_edges")),
+                               style = "font-size:120%",
+                               align = "center")
+                              )
+                         ),           
+        conditionalPanel(condition="input.conditionedPanels==2",
                          
                          br(),
                          
-                         h3("Result of evaluation")
+                         fluidRow(
+                           
+                         ))                    
+              #            h3("Original Graph"),
+              #            
+              # div(plotOutput("graphPlot"), align="center", style="font-size: 110%"),
+              #            
+              #            
+              #            br(),
+              #            
+              #            h3("Reduced Graph")
 
               #div(tableOutput("loadedGraph"), align="center", style="font-size: 110%"),
                          
@@ -91,7 +110,7 @@ shinyUI(
    
     
   )
+
+  )
+
   
-  
-  
-)
