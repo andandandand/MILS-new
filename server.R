@@ -16,30 +16,30 @@ shinyServer(function(input, output, session) {
   
   #g is an igraph graph, not an adjacency matrix
   g <- loadGraphPA("./data/starGraphAdjMatrix.csv")
-  pv <- calculatePerturbationByVertexDeletion(g, 4, 1)
-  print(pv)
-  pe <- calculatePerturbationByEdgeDeletion(g ,4, 1)
-  print(pe)
-  #TODO: define a coloring as in perturbation analysis
-  #g  <- setGraphColors(g, pv, pe)
+  pv <- calculatePerturbationByVertexDeletion(g, blockSize=4, offset = 1)
+  #print(pv)
+  pe <- calculatePerturbationByEdgeDeletion(g, blockSize = 4, offset = 1)
+  #print(pe)
+  
+  # TODO: define a graph coloring different 
+  # from the one used in perturbation analysis
+  # g  <- setGraphColors(g, pv, pe)
   
   #TODO: rename to "deletionsCounter"
   perturbationCounter <- as.integer(1)
   
-  
   reactiveData <- reactiveValues(g = g,
-                       pv = pv,
-                       pe = pe,
-                       perturbationCounter = perturbationCounter)
+                                 pv = pv,
+                                 pe = pe,
+                                 perturbationCounter = perturbationCounter)
   
-  
-  
-  
-  observe({
+  #changed from observe
+  observeEvent(input$numberOfElements, {
 
+    elems <- 0
     if(input$elementsToDelete == "vertices"){ 
-        #number of vertices  
-        elems <- vcount(reactiveData$g)
+      #number of vertices  
+      elems <- vcount(reactiveData$g)
     } 
     else{
       #ecount takes into account directed edges
@@ -48,12 +48,9 @@ shinyServer(function(input, output, session) {
     
     print(elems)
      
-     #TODO: make this update correctly on client
      updateSliderInput(session,
-                       "elementsToDelete",
-                       min = 1, 
-                       max = elems, 
-                       step = 1)
+                       "numberOfElements",
+                       max = elems)
      
     
   })
@@ -66,7 +63,6 @@ shinyServer(function(input, output, session) {
   #                     max = vcount(react_graph$g))
   # })
   
-  #TODO: return igraph plot to mainPanel
   output$graphPlot <- renderPlot({
     
     coords <- layout_(reactiveData$g, as_star())
@@ -78,4 +74,5 @@ shinyServer(function(input, output, session) {
          vertex.label.family = "Arial Black")
     
   }) 
+
 })

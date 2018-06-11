@@ -18,7 +18,7 @@ shinyUI(
     sidebarLayout(
       
       column(6, 
-             tabsetPanel(id = "conditionedPanels",
+             tabsetPanel(
                tabPanel("For networks",
                         value = 1,
                         
@@ -48,17 +48,20 @@ shinyUI(
                                         max = 10, value = 1, step = 1
                                         ),
                             
+                            #TODO: handle server logic
                             actionButton(inputId="swapGraphsButton",
                                          label  ="Update evaluated graph")
                           )
                         )
-                      ), #en "For networks" tabpanel
+                      ), #end "For networks" tabpanel
                
                tabPanel("For strings",
                         value=2,
+                        
                         h3("MILS for Strings")
                         
-                        )
+                        ),#end "For strings" tabpanel
+               id = "conditionedPanels"
              )
       ),
       
@@ -67,50 +70,30 @@ shinyUI(
         conditionalPanel(condition="input.conditionedPanels==1",
                          
                          br(),
-
                          fluidRow(
-                           column(width = 6,
-                                  HTML('<center><h3>Original graph</h3></center>'),
-                                  plotOutput("graphPlot")),
-                           column(width = 6,
-                                  HTML('<center><h3>Reduced graph</h3></center>'),
-                                  plotOutput("graphPlot")),
-                           div(p("Removed edges: ", 
-                                 #textOutput(outputId = "removed_edges")),
-                               style = "font-size:120%",
-                               align = "center")
-                              )
-                         ),           
+                          column(width = 5, 
+                                 h3("Original Graph", align="center"),
+                                 plotOutput("graphPlot")),
+                          column(width = 5, 
+                                 h3("Reduced Graph", align="center"),
+                                 plotOutput(""))
+                         )
+                        ), # end conditionalPanel
         conditionalPanel(condition="input.conditionedPanels==2",
                          
                          br(),
                          
                          fluidRow(
                            
-                         ))                    
-              #            h3("Original Graph"),
-              #            
-              # div(plotOutput("graphPlot"), align="center", style="font-size: 110%"),
-              #            
-              #            
-              #            br(),
-              #            
-              #            h3("Reduced Graph")
-
-              #div(tableOutput("loadedGraph"), align="center", style="font-size: 110%"),
+            
                          
                          
                          )
         
-        
       )  
-      
-      
     )
-   
-    
+   )
   )
-
-  )
+)#end shinyUI
 
   
